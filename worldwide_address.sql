@@ -26,6 +26,8 @@ create or replace table basedata.openaddress as select * from WORLDWIDE_ADDRESS_
 
 grant select on table basedata.openaddress to public;
 
+create tag basedata.country_code;
+
 // use this to populate the country_entitlement table below with consumer accounts
 select current_account(), current_region();
 
@@ -37,6 +39,8 @@ insert into basedata.country_entitlement values ('fr', 'CQ84479', 'PUBLIC.GCP_EU
                                        ('br', 'AT45871', 'PUBLIC.AWS_US_WEST_2'),
                                        ('it', 'AT45871', 'PUBLIC.AWS_US_WEST_2')
                                        ;
+alter table basedata.country_entitlement set tag country_code = 'multiple';
+
 // reader account                                       
 update basedata.country_entitlement set country_code = 'mx' where consumer_account = 'NSA04695';
 update basedata.country_entitlement set country_code = '*' where consumer_account = 'NSA04695';
